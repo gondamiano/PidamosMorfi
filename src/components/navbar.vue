@@ -1,27 +1,38 @@
 <template>
-  <div class="ui segment pusheable">
-    <div class="ui inverted ui push top sidebar menu">
-      <div class="item">
-        <i aria-hidden="true" class="home icon">Home</i>
-      </div>
-      <div class="item">
-        <i aria-hidden="true" class="gamepad icon">a jugar</i>
-      </div>
-      <div class="item">
-        <i aria-hidden="true" class="home icon">Home</i>
+  <div class="ui secondary  menu">
+  <<router-link :to="{ name: 'home' }" class="item active">
+    Home
+  </router-link>
+  <router-link :to="{ name: 'HelloWorld'}" class="item">
+    Pedidos
+  </router-link>
+  <div class="right menu">
+    <div class="item">
+      <div class="ui icon input">
+        <input type="text" placeholder="Search...">
+        <i class="search link icon"></i>
       </div>
     </div>
-    </div>
+    <a class="ui item">
+      Logout
+    </a>
+  </div>
+</div>
 </template>
 
 <script>
 
 export default {
-  name: 'navbar',
+  name: 'navBar',
   data () {
     return {
       options: ['usuarios', 'pedidos', 'salir']
     }
+  },
+  created () {
+    var vm = this
+  },
+  methods: {
   }
 }
 
