@@ -1,9 +1,7 @@
-<script>
-
 const orderService = {
   getOrders() {
     return new Promise(function(resolve, reject) {
-      Vue.http.get('localhost:3000/orders').then(
+      Vue.http.get('http://localhost:3000/api/users').then(
         function(response) {
           resolve(response.body);
         },
@@ -23,7 +21,7 @@ const orderService = {
         function(response) {
           reject(response);
         }
-      ),
+      );
     })
   },
 
@@ -36,10 +34,9 @@ const orderService = {
         function(response) {
           reject(response);
         }
-      ),
+      );
     })
   },
 }
 
 export default orderService;
-</script>

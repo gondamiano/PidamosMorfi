@@ -16,8 +16,20 @@
 </template>
 
 <script>
+import OrderService from '../services/orderService.js'
+
 export default {
   name: "home",
+  beforeCreate() {
+    
+      OrderService.getOrders().then(function(response) {
+        console.log(response);
+      },
+      function(response){
+        console.log(response);
+      })
+  },
+
   data() {
     return {
       orders : [{
@@ -41,10 +53,10 @@ export default {
   methods: {
     getOrder(orderId) {
         console.log(orderId);
-        console.log(Date().getDate());
     }
   }
 }
+
 </script>
 <style>
 tbody>tr:hover {

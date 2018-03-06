@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Resource from 'vue-resource'
+window.Vue = Vue;
 
 Vue.config.productionTip = false
 Vue.use(Resource)
