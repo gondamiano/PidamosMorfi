@@ -7,9 +7,10 @@
   </thead>
 <tbody>
     <tr v-for="order in orders" v-on:click="getOrder(order.id)">
-      <td>{{order.id}}</td>
-      <td>{{order.store}}</td>
-      <td>{{order.date}}</td>
+      <td>{{order.usersfood.quantity}}</td>
+      <td></td>
+      <td>{{order.store_id}}</td>
+      <td>{{order.total}}</td>
     </tr>
   </tbody>
 </table>
@@ -19,40 +20,26 @@
 import OrderService from '../services/orderService.js'
 
 export default {
-  name: "home",
-  beforeCreate() {
-    
-      OrderService.getOrders().then(function(response) {
-        console.log(response);
-      },
-      function(response){
-        console.log(response);
-      })
+  name: 'home',
+  beforeCreate () {
+    var vm = this;
+    OrderService.getOrders().then(function (response) {
+      vm.orders = response
+      console.log(vm.orders)
+    },
+    function (response) {
+      console.log(response)
+    })
   },
 
-  data() {
+  data () {
     return {
-      orders : [{
-          id: 1,
-          store : 'La Orquidea',
-          date: '1/3/2018',
-        },
-        {
-            id: 2,
-            store : 'La Patagonia',
-            date: '2/3/2018',
-        },
-        {
-            id: 3,
-            store : 'Los Churrazos',
-            date: '5/3/2018',
-        }
-      ]
+      orders: {}
     }
   },
   methods: {
-    getOrder(orderId) {
-        console.log(orderId);
+    getOrder (orderId) {
+      console.log(orderId)
     }
   }
 }
