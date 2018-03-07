@@ -6,8 +6,8 @@
   </tr>
   </thead>
 <tbody>
-    <tr v-for="order in orders" v-on:click="getOrder(order.id)">
-      <td>{{order.usersfood.quantity}}</td>
+    <tr v-for="order in orders" v-on:click="goToOrder(order)">
+      <td></td>
       <td></td>
       <td>{{order.store_id}}</td>
       <td>{{order.total}}</td>
@@ -22,7 +22,7 @@ import OrderService from '../services/orderService.js'
 export default {
   name: 'home',
   beforeCreate () {
-    var vm = this;
+    var vm = this
     OrderService.getOrders().then(function (response) {
       vm.orders = response
       console.log(vm.orders)
@@ -40,6 +40,10 @@ export default {
   methods: {
     getOrder (orderId) {
       console.log(orderId)
+    },
+    goToOrder (order) {
+      console.log(order._id)
+      this.$router.push({name : 'order' , params: { id : order._id }})
     }
   }
 }
