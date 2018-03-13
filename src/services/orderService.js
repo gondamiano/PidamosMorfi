@@ -49,6 +49,19 @@ const orderService = {
         }
       );
     })
+  },
+
+  insertUserInOrder(userInfo) {
+    return new Promise(function (resolve, reject) {
+      Vue.http.put('http://localhost:3000/api/insertUserInOrder', userInfo).then(
+        function (response) {
+          resolve(response.body)
+        },
+        function (response) {
+          reject(response)
+        }
+      );
+    })
   }
 }
 
