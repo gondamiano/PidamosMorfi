@@ -45,7 +45,7 @@ const orderService = {
         resolve(response.body);
         },
         function(response) {
-          reject(response);
+          reject("sale bien", response);
         }
       );
     })

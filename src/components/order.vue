@@ -3,18 +3,18 @@
     <form class="" action="index.html" method="post" v-show="this.showFormForNewUser">
       <div class="ui small form">
         <div class="three fields">
-          <select class="ui dropdown" v-model="addUser._id">
+          <select class="ui dropdown" v-model="addUser.user._id">
             <option selected="selected"> Elija un usuario </option>
-            <option value="user._id"  v-for="user in users"> {{ user.name }}</option>
+            <option :value="user._id"  v-for="user in users"> {{ user.name }}</option>
           </select>
           <br>
           <div class="field">
             <label>Cantidad</label>
-            <input placeholder="cantidad" max="10" min="1" v-model="addUser.food.quantity" type="number">
+            <input placeholder="cantidad" max="10" min="1" v-model="addUser.food[0].quantity" type="number">
           </div>
       </div>
-        <select class="ui dropdown" v-for="foods in this.order.store_id.typeOf" v-model="addUser.food.food_id">
-          <option value="foods.food_id" >{{ foods.foodName }}</option>
+        <select class="ui dropdown" v-model="addUser.food[0].food_id">
+          <option :value="foods.food_id" v-for="foods in this.order.store_id.typeOf">{{ foods.foodName }}</option>
         </select>
         <br>
       <div class="ui submit button" v-on:click="submitUserFood()">Agregar</div>
@@ -70,9 +70,12 @@ export default {
       order : {store_id: {name: 'Local'}},
       showFormForNewUser: false,
       addUser: {
+        _id: 0,
         food : [{
+          description: '',
           quantity: 0,
-        }]
+        }],
+        user : {}
       },
       users : {},
     }
@@ -96,10 +99,10 @@ export default {
   methods: {
     addUserOrder () {
       this.showFormForNewUser = !this.showFormForNewUser
-      var vm = this
+      var vm = this;
       UserService.getUsers().then(
         function (response) {
-          vm.users = response
+          vm.users = response;
         },
         function (response) {
           console.log("FALLO : " , response)
@@ -109,27 +112,23 @@ export default {
 
     submitUserFood() {
       var vm = this
-    /*  vm.usuario = {
-        _id : "5a9f0db8c7d91541380e8c1b",
-        user_id : "5aa6c8523ef3eb1ae8e6aa7b",
-        food : [{
-           food_id : "5",
-            description:  "churros",
-             quantity: 8,
-              price: 25,
-              total: 0
-        }]
-      }
-      vm.usuario.total = vm.usuario.quantity * vm.usuario.price
+      vm.addUser._id = vm.order._id;
+      vm.addUser.total = vm.addUser.quantity * vm.addUser.price;
+      vm.order.store_id.typeOf.forEach( function (food) {
+        if(food.food_id == vm.addUser.food.food_id)
+          vm.addUser.food.description = food.description;
+      })
 
-      OrderService.insertUserInOrder(vm.usuario).then(
+      OrderService.insertUserInOrder(vm.addUser).then(
         function (response) {
-          vm.order.users.push(vm.usuario)
+          vm.order.users.push(vm.addUser)
         },
         function(response){
           console.log("FALLO:!!!", response)
         }
-      )*/
+      )
+      console.log(vm.order)
+      console.log("asd", vm.addUser)
     }
   }
 }
