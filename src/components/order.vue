@@ -3,7 +3,7 @@
     <form class="" action="index.html" method="post" v-show="this.showFormForNewUser">
       <div class="ui small form">
         <div class="three fields">
-          <select class="ui dropdown" v-model="addUser.user._id">
+          <select class="ui dropdown" v-model="addUser.user_id">
             <option selected="selected"> Elija un usuario </option>
             <option :value="user._id"  v-for="user in users"> {{ user.name }}</option>
           </select>
@@ -71,11 +71,11 @@ export default {
       showFormForNewUser: false,
       addUser: {
         _id: 0,
+        user_id: 0,
         food : [{
           description: '',
           quantity: 0,
-        }],
-        user : {}
+        }]
       },
       users : {},
     }
@@ -113,12 +113,12 @@ export default {
     submitUserFood() {
       var vm = this
       vm.addUser._id = vm.order._id;
-      vm.addUser.total = vm.addUser.quantity * vm.addUser.price;
       vm.order.store_id.typeOf.forEach( function (food) {
-        if(food.food_id == vm.addUser.food.food_id)
-          vm.addUser.food.description = food.description;
+        if(food.food_id == vm.addUser.food[0].food_id)
+          vm.addUser.food[0].description = food.foodName;
+          vm.addUser.food[0].price = food.price;
       })
-
+      vm.addUser.food[0].total = vm.addUser.food[0].quantity * vm.addUser.food[0].price;
       OrderService.insertUserInOrder(vm.addUser).then(
         function (response) {
           vm.order.users.push(vm.addUser)

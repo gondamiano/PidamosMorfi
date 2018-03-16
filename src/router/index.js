@@ -21,7 +21,7 @@ export default new Router({
       auth: true
     },
     {
-      path: '/order',
+      path: '/order/:id',
       name: 'order',
       component: Order,
       auth: true
