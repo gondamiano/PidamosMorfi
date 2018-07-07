@@ -1,5 +1,5 @@
-const orderService = {
-  getOrders(){
+const orderService = { 
+  getOrders() {
     return new Promise(function(resolve, reject) {
       Vue.http.get('http://localhost:3000/api/orders').then(
         function(response) {
@@ -12,7 +12,7 @@ const orderService = {
     })
   },
 
-  getOrder(id){
+  getOrder(id) {
     return new Promise(function(resolve, reject) {
       Vue.http.get('localhost:3000/orders/:_' + id).then(
         function(response) {
@@ -25,7 +25,7 @@ const orderService = {
     })
   },
 
-  createOrder(order){
+  createOrder(order) {
     return new Promise(function(resolve, reject) {
       Vue.http.put('localhost:3000/orders', {product: product}).then(
         function(response) {

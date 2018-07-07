@@ -1,10 +1,13 @@
 <template>
   <div class="ui secondary  menu">
-  <<router-link :to="{ name: 'home' }" class="item active">
+  <router-link :to="{ name: 'home' }" class="item active">
     Home
   </router-link>
   <router-link :to="{ name: 'HelloWorld'}" class="item">
     Pedidos
+  </router-link>
+  <router-link :to="{ name: 'stores'}" class="item">
+    Locales
   </router-link>
   <div class="right menu">
     <div class="item">
