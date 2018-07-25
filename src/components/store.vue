@@ -34,7 +34,7 @@
                 <br>
             </div>
             <br>
-                <label><i class="plus icon" v-on:click="add()"></i></label>
+                <label><i class="plus icon" v-bind:class="{ 'minus icuon': addFood}" v-on:click="add()"></i></label>
             <div class="ui form" v-if="addFood">
                 <div class="two fields johnny">
                         <div class="ui form">
@@ -118,13 +118,21 @@ export default {
     },
     methods: {
         add() {
-            this.addFood = !this.addFood;
-            this.typeFood = {foodName: "", price: undefined };
+            if(!this.addFood && this.modifyFood) {
+                this.addFood = !this.addFood;
+                this.modifyFood = !this.modifyFood;
+                this.typeFood = {foodName: "", price: undefined };
+            }
+            else if(!this.modifyFood) {
+                this.addFood = !this.addFood;
+                this.typeFood = {foodName: "", price: undefined };
+            }
         },
 
         modify(food) {
-            if(!this.modifyFood) {
+            if(!this.modifyFood && this.addFood) {
                 this.modifyFood = !this.modifyFood;
+                this.addFood = !this.addFood;
                 this.typeOf = food;
             }
             else { 
@@ -135,8 +143,8 @@ export default {
 
         deleteFood(food) {
             var vm = this;
-
-            this.store.typeOf = this.store.find( this.store.typeOf, function(elem) {return elem.foodName != food.foodName && elem.price != food.price });
+            var deleted = { _id: this.store, foodName: ""};
+            deleted._id = this.store.typeOf.filter( function(elem) {return elem.foodName != food.foodName && elem.price != food.price });
         },
 
         submitStore() {

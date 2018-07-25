@@ -5,6 +5,7 @@ import Home from '@/components/home'
 import Order from '@/components/order'
 import Stores from '@/components/stores'
 import Store from '@/components/store'
+import Orders from '@/components/orders'
 
 Vue.use(Router)
 
@@ -38,6 +39,12 @@ export default new Router({
       path: '/stores',
       name: 'stores',
       component: Stores,
+      auth: true
+    },
+    {
+      path: '/orders',
+      name: 'orders',
+      component: Orders,
       auth: true
     }
   ]

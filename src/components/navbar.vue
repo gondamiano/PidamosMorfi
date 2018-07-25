@@ -3,7 +3,7 @@
   <router-link :to="{ name: 'home' }" class="item active">
     Home
   </router-link>
-  <router-link :to="{ name: 'HelloWorld'}" class="item">
+  <router-link :to="{ name: 'orders'}" class="item">
     Pedidos
   </router-link>
   <router-link :to="{ name: 'stores'}" class="item">
